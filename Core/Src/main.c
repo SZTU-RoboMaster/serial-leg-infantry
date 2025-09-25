@@ -20,6 +20,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "can.h"
+#include "dma.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -90,10 +91,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_CAN1_Init();
   MX_USART6_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  RetargetInit(&huart6);
+  can_filter_init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -111,6 +115,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    // printf("hello\r\n");
+    can_cmd_send(CAN_1, CAN_MOTOR_0x200 , 1000, 1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

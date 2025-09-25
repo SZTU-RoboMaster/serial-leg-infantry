@@ -14,11 +14,11 @@ void can_filter_init(void)
     can_filter_st.FilterBank = 0;
     can_filter_st.FilterFIFOAssignment = CAN_RX_FIFO0;
     if (HAL_CAN_ConfigFilter(&hcan1, &can_filter_st) == HAL_OK) {
-       // printf("Filter Config OK!\r\n");
+       printf("Filter Config OK!\r\n");
     }
     HAL_CAN_Start(&hcan1);
     if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING) == HAL_OK) {
-        // printf("Active successfully!\r\n");
+        printf("Active successfully!\r\n");
     }
 }
 

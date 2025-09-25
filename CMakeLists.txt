@@ -60,8 +60,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
         component/comunnication/can_msg/Inc
-        component/device/DMMotor/Inc
-        component/device/DJMotor/Inc
+        component/Motor/DMMotor/Inc
+        component/Motor/DJMotor/Inc
         bsp/Inc
 )
 

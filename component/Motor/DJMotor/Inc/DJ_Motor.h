@@ -40,6 +40,6 @@ typedef struct {
 extern motor_measure_t motor_3508_msg;
 extern uint8_t rx_data[8];
 
-void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current);
+void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current1, int16_t give_current2);
 
 #endif //M3508_MOTOR_CAN_TX_RX_H

@@ -17,7 +17,7 @@ uint8_t send_data[8];
 motor_measure_t motor_3508_msg;
 uint8_t rx_data[8];
 
-void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current)
+void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current1, int16_t give_current2)
 {
     uint32_t tx_mail_box;
 
@@ -27,10 +27,10 @@ void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current)
     tx_message.DLC = 0x08;
     tx_message.TransmitGlobalTime = DISABLE;
 
-    send_data[0] = give_current >> 8;
-    send_data[1] = give_current;
-    send_data[2] = 0;
-    send_data[3] = 0;
+    send_data[0] = give_current1 >> 8;
+    send_data[1] = give_current1;
+    send_data[2] = give_current2 >> 8;
+    send_data[3] = give_current2;
     send_data[4] = 0;
     send_data[5] = 0;
     send_data[6] = 0;
