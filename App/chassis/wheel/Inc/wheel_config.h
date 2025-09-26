@@ -6,11 +6,9 @@
 #define WL_INFANTRY_WHEEL_CONFIG_H
 
 #include "main.h"
+#include "can_msg.h"
 #include "DJ_Motor.h"
 
-typedef enum {
-    LEFT_W = 0,
-    RIGHT_W = 1,
-}wheel_id_e;
+
 
 #endif //WL_INFANTRY_WHEEL_CONFIG_H

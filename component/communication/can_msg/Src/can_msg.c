@@ -3,6 +3,7 @@
 //
 
 #include "../Inc/can_msg.h"
+#include "DM_Motor.h"
 
 
 #define GET_DJ_MOTOR_MSG(ptr, handle)\

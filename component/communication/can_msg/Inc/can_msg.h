@@ -9,11 +9,6 @@
 #include "can.h"
 #include "stm32f4xx_hal_can.h"
 #include "retarget.h"
-#include "DJ_Motor.h"
-#include "DM_Motor.h"
-#include <stdio.h>
-#include "wheel_config.h"
-
 
 typedef enum {
     CAN_1 = 0,
@@ -29,6 +24,11 @@ typedef enum {
     CAN_REC_MOTOR_0x201 = 0X201,
     CAN_REC_MOTOR_0x202 = 0X202,
 }can_id_e;
+
+typedef enum {
+    LEFT_W = 0,
+    RIGHT_W = 1,
+}wheel_id_e;
 
 void CANx_SendStdData(CAN_HandleTypeDef *hcan,uint16_t ID,uint8_t *pData,uint16_t Len);
 

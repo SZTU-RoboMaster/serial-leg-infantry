@@ -31,8 +31,6 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "DJ_Motor.h"
-#include "remote.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

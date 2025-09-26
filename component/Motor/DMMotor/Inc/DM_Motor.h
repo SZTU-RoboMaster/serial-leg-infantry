@@ -11,6 +11,7 @@
 #include "retarget.h"
 #include <stdio.h>
 #include "struct_typedef.h"
+#include "can_msg.h"
 
 #define CMD_LEN  8
 #define P_MIN (-12.5)
@@ -24,8 +25,6 @@
 #define T_MIN (-54)
 #define T_MAX 54
 
-// #define MOTOR_8009_ID 0x03
-// #define MOTOR_8009_REC_ID 0x13
 
 //1.MIT 2.位置速度 3.速度
 typedef enum {

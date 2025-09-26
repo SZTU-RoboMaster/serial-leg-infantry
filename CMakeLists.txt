@@ -64,7 +64,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         App/wl_def/Inc
         App/chassis/wheel/Inc
         App/chassis
-        component/comunnication/can_msg/Inc
+        component/communication/can_msg/Inc
         component/Motor/DMMotor/Inc
         component/Motor/DJMotor/Inc
         component/algorithm/Inc

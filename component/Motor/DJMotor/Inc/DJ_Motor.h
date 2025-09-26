@@ -6,9 +6,6 @@
 #define M3508_MOTOR_CAN_TX_RX_H
 
 #include "bsp_can.h"
-#include "retarget.h"
-#include "can.h"
-#include <stdio.h>
 #include "can_msg.h"
 
 // 轮毂电机反馈信息结构体

@@ -2,6 +2,9 @@
 #include "retarget.h"
 #include <stdio.h>
 #include  "DM_Motor.h"
+#include "retarget.h"
+#include "can.h"
+#include <stdio.h>
 
 CAN_TxHeaderTypeDef tx_message;
 uint8_t send_data[8];
