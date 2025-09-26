@@ -4,4 +4,4 @@
 
 #include "../Inc/wheel_config.h"
 
-motor_measure_t motor_3508_msg[2];
+DJ_Motor_measure_t motor_3508_msg[2];

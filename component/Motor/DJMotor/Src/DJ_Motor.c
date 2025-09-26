@@ -24,10 +24,10 @@ void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t left_motor, int1
     send_data[1] = left_motor;
     send_data[2] = right_motor >> 8;
     send_data[3] = right_motor;
-    send_data[4] = 0;
-    send_data[5] = 0;
-    send_data[6] = 0;
-    send_data[7] = 0;
+    send_data[4] = right_motor >> 8;
+    send_data[5] = right_motor;
+    send_data[6] = right_motor >> 8;
+    send_data[7] = right_motor;
 
     if (can_type == CAN_1) {
         HAL_CAN_AddTxMessage(&hcan1, &tx_message, send_data, &tx_mail_box);

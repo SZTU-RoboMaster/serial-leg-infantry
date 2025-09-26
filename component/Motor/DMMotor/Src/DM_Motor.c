@@ -88,7 +88,7 @@ void DM_spd_ctrl(can_type_e can_type,uint16_t id, float vel)
         CANx_SendStdData(&hcan1, id, data, 4);
         // printf("id : %x data : %x %x %x %x\r\n", id, data[0], data[1], data[2], data[3]);
     } else {
-        // CANx_SendStdData(&hcan2, motor_id, data, 4);
+        // CANx_SendStdData(&hcan2, motor_id, data, 4);z
     }
 }
 

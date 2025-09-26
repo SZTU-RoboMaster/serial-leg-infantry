@@ -3,3 +3,5 @@
 //
 
 #include "robot_def.h"
+
+Chassis_t chassis;

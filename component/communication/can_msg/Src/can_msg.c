@@ -6,15 +6,6 @@
 #include "DM_Motor.h"
 
 
-#define GET_DJ_MOTOR_MSG(ptr, handle)\
-do {                                                                \
-    (ptr)->last_ecd = (ptr)->ecd;                                   \
-    (ptr)->ecd = (uint16_t)handle[0] << 8 | handle[1];              \
-    (ptr)->RPM = (uint16_t)handle[2] << 8 | handle[3];              \
-    (ptr)->give_current = (uint16_t)handle[4] << 8 | handle[5];     \
-    (ptr)->temperature = handle[6];                                  \
-    } while (0)
-
 /**
  * @brief 将数据通过空的邮箱发送出去
  * @param hcan can接口
@@ -25,7 +16,6 @@ do {                                                                \
  */
 void CANx_SendStdData(CAN_HandleTypeDef *hcan,uint16_t ID,uint8_t *pData,uint16_t Len)
 {
-    printf("%x\r\n", ID);
     static CAN_TxHeaderTypeDef Tx_Header;
 
     Tx_Header.StdId=ID;
@@ -45,6 +35,23 @@ void CANx_SendStdData(CAN_HandleTypeDef *hcan,uint16_t ID,uint8_t *pData,uint16_
     }
 }
 
+/**
+ * @brief DJI电机解码
+ * @param[in] motor  电机结构体指针
+ * @param[in] data   接收到的数据的指针
+ */
+void DJI_Motor_Decode(DJ_Motor_measure_t *motor, uint8_t *data) {
+    motor->last_ecd = motor->ecd;
+    /* 转子机械角度 */
+    motor->ecd = (uint16_t)(data[0]<<8 | data[1]);
+    /* 转子转速 */
+    motor->speed_rpm = (int16_t)(data[2]<<8 | data[3]);
+    /* 实际扭矩电流 */
+    motor->given_current = (int16_t)(data[4]<<8 | data[5]);
+    /* 电机温度 */
+    motor->temperate = data[6];
+}
+
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
     // printf("7888888888888888888\r\n");
     uint8_t rec_msg[8] = {0};
@@ -56,11 +63,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
     if (hcan == &hcan1) {
         switch (rx_header.StdId) {
             case CAN_REC_MOTOR_0x201: {
-                GET_DJ_MOTOR_MSG(&motor_3508_msg[LEFT_W], rec_msg);
+                DJI_Motor_Decode(&motor_3508_msg[LEFT_W], rec_msg);
                 break;
             }
             case CAN_REC_MOTOR_0x202: {
-                GET_DJ_MOTOR_MSG(&motor_3508_msg[RIGHT_W], rec_msg);
+                DJI_Motor_Decode(&motor_3508_msg[RIGHT_W], rec_msg);
                 break;
             }
             case MOTOR_8009_REC_ID: {
