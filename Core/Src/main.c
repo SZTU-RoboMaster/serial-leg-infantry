@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -95,9 +96,11 @@ int main(void)
   MX_CAN1_Init();
   MX_USART6_UART_Init();
   MX_USART3_UART_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
   RetargetInit(&huart6);
   can_filter_init();
+  remote_control_init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -116,7 +119,7 @@ int main(void)
   while (1)
   {
     // printf("hello\r\n");
-    can_cmd_send(CAN_1, CAN_MOTOR_0x200 , 1000, 1000);
+    // can_cmd_send(CAN_1, CAN_MOTOR_0x200 , 1000, 1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -3,21 +3,11 @@
 #include <stdio.h>
 #include  "DM_Motor.h"
 
-#define GET_MOTOR_MSG(ptr, handle)\
-    do {                                                                \
-        (ptr)->last_ecd = (ptr)->ecd;                                   \
-        (ptr)->ecd = (uint16_t)handle[0] << 8 | handle[1];              \
-        (ptr)->RPM = (uint16_t)handle[2] << 8 | handle[3];              \
-        (ptr)->give_current = (uint16_t)handle[4] << 8 | handle[5];     \
-        (ptr)->temperature = handle[6];                                  \
-    } while (0)
-
 CAN_TxHeaderTypeDef tx_message;
 uint8_t send_data[8];
-motor_measure_t motor_3508_msg;
 uint8_t rx_data[8];
 
-void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current1, int16_t give_current2)
+void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t left_motor, int16_t right_motor)
 {
     uint32_t tx_mail_box;
 
@@ -27,10 +17,10 @@ void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current1, i
     tx_message.DLC = 0x08;
     tx_message.TransmitGlobalTime = DISABLE;
 
-    send_data[0] = give_current1 >> 8;
-    send_data[1] = give_current1;
-    send_data[2] = give_current2 >> 8;
-    send_data[3] = give_current2;
+    send_data[0] = left_motor >> 8;
+    send_data[1] = left_motor;
+    send_data[2] = right_motor >> 8;
+    send_data[3] = right_motor;
     send_data[4] = 0;
     send_data[5] = 0;
     send_data[6] = 0;
@@ -41,38 +31,3 @@ void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current1, i
     }
 }
 
-void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
-    // printf("7888888888888888888\r\n");
-    uint8_t rec_msg[8] = {0};
-
-    CAN_RxHeaderTypeDef rx_header;
-
-    HAL_CAN_GetRxMessage(hcan, CAN_FILTER_FIFO0, &rx_header, rec_msg);
-
-    if (hcan == &hcan1) {
-        switch (rx_header.StdId) {
-            case CAN_REC_MOTOR_0x201: {
-                GET_MOTOR_MSG(&motor_3508_msg, rec_msg);
-                break;
-            }
-            case CAN_REC_MOTOR_0x202: {
-
-                break;
-            }
-            case CAN_REC_MOTOR_0x203: {
-
-                break;
-            }
-            case CAN_REC_MOTOR_0x204: {
-
-                break;
-            }
-            case MOTOR_8009_REC_ID: {
-
-                break;
-            }
-        }
-    }
-
-
-}

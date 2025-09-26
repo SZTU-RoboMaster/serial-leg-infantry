@@ -5,30 +5,13 @@
 #ifndef M3508_MOTOR_CAN_TX_RX_H
 #define M3508_MOTOR_CAN_TX_RX_H
 
-#include "can_bsp.h"
+#include "bsp_can.h"
 #include "retarget.h"
 #include "can.h"
 #include <stdio.h>
+#include "can_msg.h"
 
-typedef enum {
-    CAN_1 = 0,
-    CAN_2 = 1
-}can_type_e;
-
-typedef enum {
-    // 发送标志位
-    CAN_MOTOR_0x200 = 0x200,
-    CAN_MOTOR_0x1FF = 0x1FF,
-
-    // 接收标志位
-    CAN_REC_MOTOR_0x201 = 0X201,
-    CAN_REC_MOTOR_0x202 = 0X202,
-    CAN_REC_MOTOR_0x203 = 0X203,
-    CAN_REC_MOTOR_0x204 = 0X204,
-
-
-}can_id_e;
-
+// 轮毂电机反馈信息结构体
 typedef struct {
     uint16_t ecd;
     uint16_t last_ecd;
@@ -37,7 +20,7 @@ typedef struct {
     uint8_t temperature;
 }motor_measure_t;
 
-extern motor_measure_t motor_3508_msg;
+extern motor_measure_t motor_3508_msg[2];
 extern uint8_t rx_data[8];
 
 void can_cmd_send(can_type_e can_type, can_id_e can_id, int16_t give_current1, int16_t give_current2);

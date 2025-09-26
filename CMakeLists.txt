@@ -42,6 +42,7 @@ add_subdirectory(cmake/stm32cubemx)
 
 file(GLOB_RECURSE COMPONENT_SOURCE "component/**/*.c")
 file(GLOB_RECURSE BSP_SOURCE "bsp/**/*.c")
+file(GLOB_RECURSE APP_SOURCE "App/**/*.c")
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -53,15 +54,21 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
         ${COMPONENT_SOURCE}
         ${BSP_SOURCE}
+        ${APP_SOURCE}
         Core/Src/retarget.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+        App/wl_def/Inc
+        App/chassis/wheel/Inc
+        App/chassis
         component/comunnication/can_msg/Inc
         component/Motor/DMMotor/Inc
         component/Motor/DJMotor/Inc
+        component/algorithm/Inc
+        component/Operate/Inc
         bsp/Inc
 )
 
